@@ -3,7 +3,7 @@ import time
 
 
 fileload = {
-    "filename": "A4-booklet-landscape",
+    "filename": "Book1",
     "extension": "pdf"
 }
 
