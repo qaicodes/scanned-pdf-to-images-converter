@@ -19,6 +19,14 @@ class ImageUtilities:
             return "landscape"
         else:
             return "portrait"
+    
+    def horizontal_split(self, img, cut_x, left_path, right_path):
+        dim_left = (0, 0, cut_x - 1, img.height)
+        dim_right = (cut_x, 0, img.width, img.height)
+        img_left = img.crop(dim_left)
+        img_right = img.crop(dim_right)
+        img_left.save(left_path)
+        img_right.save(right_path)
 
     def double_split(self, original, a_side, b_side, output_folder):
         '''
@@ -88,21 +96,23 @@ class ImageUtilities:
         self.horizontal_split(original, cut_x, left_file_path, right_file_path)
     
 
-    def pixels_df(self):
+    def pixels_df(self, img ):
         '''
         Returns a dataframe of the pixels of the image.
         '''
-        pixels = np.array(self.image)
+        pixels = np.array(img)
         pixels_df = pd.DataFrame(pixels)
         return pixels_df
     
-    def downscale(self):
+    def downscale(self, original):
         '''
         Returns a downsampled image.
         '''
-        o_width, o_height = self.image.size
-        height = round(400 / o_width) * o_height
-        ds_img = self.image.convert('L').resize((400, height), resample=Image.BILINEAR)
+        o_width, o_height = original.size
+        height = round((400 / o_width) * o_height)
+        print(f"Downscaling image to {height} pixels...")
+        print(f"Original size: {o_width, o_height}")
+        ds_img = original.convert('L').resize((400, height), resample=Image.BILINEAR)
         return ds_img
     
     def middle(self, df, replacement):
