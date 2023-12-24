@@ -2,3 +2,4 @@ __pycache__
 *.pdf
 pdf-converter
 poppler-23.11.0
+*_images

@@ -1,7 +1,5 @@
-from pdf_utils.pdf_processor import PDFProcessor
+from utils.pdf_processor import PDFProcessor
 import time
-
-
 
 
 fileload = {
@@ -11,8 +9,7 @@ fileload = {
 
 pdf = PDFProcessor(fileload, f"{fileload['filename']}_images")
 
+
 if __name__ == "__main__":
-    start_time = time.time()
     pdf.to_image()
-    print("--- %s seconds ---" % (time.time() - start_time))
     # pdf.image_orientation_check()
