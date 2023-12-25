@@ -22,15 +22,24 @@ class PDFProcessor:
         return wrapper
     
     @_ticktick
-    def to_image(self) -> None:
+    def to_image(self):
         """
         Converts a PDF to images and saves them in the output directory.
         """
+        pdfImages = convert_from_path(self.filename,dpi=500, fmt='jpeg',thread_count=5, poppler_path=r"C:\Program Files\poppler-23.11.0\Library\bin")
+        print(type(pdfImages))
+        print(len(pdfImages))
+        return pdfImages
+    
+    def organise_pdf_file(self):
+        """
+        Organises the images in the output directory.
+        """
+        images = self.to_image()
         page_index = 1
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
-        pdfImages = convert_from_path(self.filename,dpi=500, fmt='jpeg',thread_count=5, poppler_path=r"C:\Program Files\poppler-23.11.0\Library\bin")
-        for image in pdfImages:
+        for image in images:
             print(f"Saving page {page_index}...")
             imgUtils = ImageUtilities(image)
             orientation = imgUtils.orientation_check(image)
@@ -41,6 +50,7 @@ class PDFProcessor:
             else:
                 image.save(f"{self.output_dir}/{page_index}.jpg")
                 page_index += 1
+        
         return f"Successfully converted PDF to images"
     
     

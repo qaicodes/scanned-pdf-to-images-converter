@@ -11,5 +11,5 @@ pdf = PDFProcessor(fileload, f"{fileload['filename']}_images")
 
 
 if __name__ == "__main__":
-    pdf.to_image()
+    pdf.organise_pdf_file()
     # pdf.image_orientation_check()
